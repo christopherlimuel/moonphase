@@ -124,7 +124,8 @@ def update_command(time):
     newmoon_label.configure(text="{:.2f} days from the last new moon".format(dJD))
 
 def input_command():
-    input_time = calendar.entry.get()+" "+hour_str.get()+':'+minute_str.get()
+    raw_time = datetime.datetime.strptime(calendar.entry.get(), '%m/%d/%Y')
+    input_time = raw_time.strftime("%d/%m/%Y") +" "+hour_str.get()+':'+minute_str.get()
     current_bool.set(value=False)
     current_rb.configure(variable=current_bool)
     update_command(input_time)
@@ -186,7 +187,8 @@ minute_str = tk.StringVar(value = minute_list[0])
 minute_cmb = ttk.Combobox(input_frame, textvariable = minute_str, width=2)
 minute_cmb['values'] = minute_list
 
-input_time = calendar.entry.get()+" "+hour_str.get()+':'+minute_str.get()
+raw_time = datetime.datetime.strptime(calendar.entry.get(), '%m/%d/%Y')
+input_time = raw_time.strftime("%d/%m/%Y") +" "+hour_str.get()+':'+minute_str.get()
 time_str = tk.StringVar(value = input_time)
 
 main_button = ttk.Button(input_frame, command = input_command, text = "Set Time")
